@@ -142,9 +142,11 @@ if __name__ == '__main__':
     parser.add_argument('access_token', type=str, help='FB API access token')
     parser.add_argument('--debug', '-d', action='store_true', help='FB API debug info')
     parser.add_argument('--suppress-warnings', '-s', action='store_true')
-    parser.add_argument('--max-depth', '-m', type=int, default=1)
-    parser.add_argument('--page-limit', '-p', type=int, default=25)
-    parser.add_argument('--excludes', '-e', nargs='*', default = excludes_default)
+    parser.add_argument('--max-depth', '-m', type=int, default=1, help='maximum depth of nested objects to produce')
+    parser.add_argument('--page-limit', '-p', type=int, default=25,
+                        help='maximum number of pages of a given connection to look through')
+    parser.add_argument('--excludes', '-e', nargs='*', default = excludes_default,
+                        help='names of connections to ignore')
 
     args = parser.parse_args()
     if args.debug:
