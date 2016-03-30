@@ -1,3 +1,4 @@
+from pprint import pprint
 from facepy import *
 import decimal
 import logging
@@ -38,13 +39,16 @@ class DirtyGraphAPI():
         self.max_depth = max_depth
 
     def get_raw_connections(self, path):
-        print path
+        #print 'getting connections of ' + path
         new_path = os.path.join(path, '?metadata=1')
         try:
-            return self.graph.get(new_path)['metadata']['connections']
+            conns = self.graph.get(new_path)['metadata']['connections'].keys()
+            print 'connections for {0}:'.format(path)
+            pprint(conns, width=1)
+            return conns
         except OAuthError as e:
             self.log_get_conn_error(e, "connections for" + path)
-            return {}
+            return set([])
 
     def get_path_for_conn(self, path, con):
         return os.path.join(path, con)
@@ -64,7 +68,7 @@ class DirtyGraphAPI():
         con_path = self.get_path_for_conn(path, con)
         ids = []
         try:
-            print 'getting {0}'.format(con_path)
+            #print 'getting node paths for connection ' + con_path
             page_gen = self.graph.get(con_path, page=True, max_depth=max_depth, page_limit=page_limit)
             for page in page_gen:
                 for el in page['data']:
@@ -114,13 +118,14 @@ class DirtyGraphAPI():
 if __name__ == '__main__':
     logging.basicConfig(level=logging.DEBUG)
     access_token = 'abc'
+    excludes = set(['insights', # insights -> possible facepy bug: https://github.com/jgorset/facepy/issues/99
+                    'friends' # slow; assume unnecessary
+                    ])
     user = UserInfo('jonathan',
                     access_token,
-                    max_depth=2,
+                    max_depth=1,
                     page_limit=25,
-                    exclude_con=set(['insights',
-                                     'friends'
-                                     ])) # insights -> possible facepy bug: https://github.com/jgorset/facepy/issues/99
+                    exclude_con=excludes)
     print str(user)
 
 
