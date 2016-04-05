@@ -51,10 +51,12 @@ class UserInfo:
                  access_token,
                  max_depth=2,
                  page_limit=25,
-                 exclude_con=set([])):
+                 exclude_con=set([]),
+                 underlying_graph=None):
         self._id = uid
         self._access_token = access_token
-        self._dirty_graph = DirtyGraphAPI(self._access_token)
+        if underlying_graph is None:
+            self._dirty_graph = DirtyGraphAPI(self._access_token)
         self._max_depth = max_depth
         self._page_limit = page_limit
         self._exclude_con = exclude_con
@@ -82,8 +84,8 @@ class CursorMissingError(DirtyGraphError):
         return '[CURSOR {0} MISSING]'.format(self._cursorkey)
 
 class DirtyGraphAPI():
-    def __init__(self, access_token, page_limit=25, max_depth=2):
-        self._graph = GraphAPI(access_token)
+    def __init__(self, access_token, page_limit=25, max_depth=2, underlying_class=GraphAPI):
+        self._graph = underlying_class(access_token)
         self._page_limit = page_limit
         self._max_depth = max_depth
 
@@ -159,7 +161,7 @@ class DirtyGraphAPI():
                                                            con,
                                                            page_limit=page_limit)
         return [self.get_all_obj_data(node_path,
-                                      prev_path_trace + [path],
+                                      prev_path_trace + [(con, path)],
                                       max_search_depth - 1,
                                       page_limit,
                                       exclude_con) \
@@ -208,7 +210,7 @@ class DirtyGraphAPI():
         except ConnectionTypeError as ct:
             connections = ct
             # name keys to define sort order for display
-        return {'0path_trace:' : prev_path_trace + [path],
+        return {'0path_trace:' : prev_path_trace,
                 '1fields' : fields,
                 '2connections' : connections}
 
@@ -239,7 +241,8 @@ def _encode_default(obj):
 
 if __name__ == '__main__':
     excludes_default = set(['insights', # insights -> possible facepy bug: https://github.com/jgorset/facepy/issues/99
-                            'friends' # slow; assume unnecessary
+                            'friends',
+                            'request_history'
                             ])
 
     parser = argparse.ArgumentParser(description='get your dirty fb data')
