@@ -16,10 +16,11 @@ Intended workflow:
 (1) and (4) could be automated with browser simulation.
 	
 installation:
-	1. Clone repo
-	2. Install dependencies (e.g. with pip)
-	3. Run tests:
-	  ` $ python -m unittest fb_prune_tests`
+
+1. Clone repo
+2. Install dependencies (e.g. with pip)
+3. Run tests:
+` $ python -m unittest fb_prune_tests`
 
 dependencies:
 	python 2.7
@@ -27,6 +28,7 @@ dependencies:
 	argparse
 	
 usage examples: 
+
 `$ python fb_prune.py my_access_token`
 `$ python fb_prune.py --debug my_access_token 1> my_json.txt 2> debug_info.txt`
 `$ python fb_prune.py --max-depth 1 --page-limit 25 my_access_token`
