@@ -1,6 +1,6 @@
 Clean up your Facebook profile. Maintain control.
 
-fb-prune is a (soon-to-be) open source tool for finding material on your Facebook that you'd like to remove.
+fb-prune is an open source tool for finding material on your Facebook that you'd like to remove.
 You don't need to give any third party access to your account other than Facebook's own Graph Explorer tool.
 
 For good security reasons, but unfortunately for our purposes, you will need to manually delete unwanted content.
@@ -10,8 +10,8 @@ This tool can only help you find it.
 ## Development
 
 **IMPORTANT**
-Git rebase instead of merge
-https://www.atlassian.com/git/tutorials/merging-vs-rebasing
+Git rebase instead of merge: https://www.atlassian.com/git/tutorials/merging-vs-rebasing
+
 See "The Golden Rule of Rebasing".
 
 
@@ -22,14 +22,18 @@ See "The Golden Rule of Rebasing".
 3. [NOT YET IMPLEMENTED] "Tinder swipe" through your content to decide which should be deleted.
 4. A list of ids for unwanted content will be produced. Delete manually.
 
-(1) and (4) could be automated with browser simulation.
+Note: It is possible that (1) and (4) can be automated with browser simulation.
 
 
 ## Installation
 
 1.  Clone repo
-2.  Install dependencies (e.g. with pip)
+2.  Install dependencies
 
+    `$ pip install -r requirements.txt`
+
+    or simply
+    
     `$ make install`
 3.  Run tests:
 
@@ -37,8 +41,8 @@ See "The Golden Rule of Rebasing".
 
 Dependencies: python 2.7,
 
-- `facepy`,
-- `argparse`,
+- `facepy`
+- `argparse`
 - `inflection`
 
 

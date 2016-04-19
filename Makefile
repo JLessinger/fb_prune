@@ -1,2 +1,2 @@
 install:
-	sudo pip install facepy argparse inflection
+	sudo pip install -r requirements.txt
