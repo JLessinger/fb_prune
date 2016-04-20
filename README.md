@@ -32,9 +32,6 @@ Note: It is possible that (1) and (4) can be automated with browser simulation.
 
     `$ pip install -r requirements.txt`
 
-    or simply
-    
-    `$ make install`
 3.  Run tests:
 
     `$ python -m unittest fb_prune_tests`
@@ -49,7 +46,7 @@ Dependencies: python 2.7,
 ## Usage examples:
 
 - `$ python fb_prune.py my_access_token`
-- `$ python fb_prune.py --debug my_access_token 1> my_json.txt 2> debug_info.txt`
+- `$ python fb_prune.py --debug my_access_token 1> my_json.out 2> debug_info.out`
 - `$ python fb_prune.py --max-depth 1 --page-limit 25 my_access_token`
 - `$ python fb_prune.py --excludes friends request_history my_access_token`
 - `$ python fb_prune.py -h # for full help message`
