@@ -1,3 +1,5 @@
 facepy
 argparse
 inflection
+PyExecJS
+requests
