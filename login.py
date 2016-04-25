@@ -25,8 +25,15 @@ class FBLogin:
 
 vm = load_fb_sdk()
 
+with open('login.js', 'r') as f:
+    vm.eval(f.read())
+
+authResponse = vm.eval('state')
+
 # Can't pass a function -- TypeError: not JSON serializable
-vm.call("FB.login", callback)
+# vm.call("FB.login", callback)
+
+
 #FB = vm.eval("FB")
 #print FB
 #print FB.login
